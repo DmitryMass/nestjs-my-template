@@ -3,18 +3,22 @@
       "@trivago/prettier-plugin-sort-imports"
   ],
   "importOrder": [
-      "react",
       "<THIRD_PARTY_MODULES>",
       "^./(.*)$",
       "^../(.*)$",
-      "@components/",
+      "@routes/",
+      "@middleware/",
+      "@admin/",
+      "@client/",
       "@utils/",
-      "@types/"
+      "@types/",
+      "^@nestjs/(.*)$", "^[./]"
   ],
   "printWidth": 80,
   "trailingComma": "all",
   "importOrderSeparation":true,
   "importOrderSortSpecifiers":true,
+  "importOrderParserPlugins":  ["typescript", "classProperties", "decorators-legacy"],
   "tabWidth": 2,
   "semi": true,
   "singleQuote": true

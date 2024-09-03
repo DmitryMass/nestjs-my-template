@@ -1,15 +1,21 @@
+import * as dotenv from 'dotenv';
+
+import { AppModule } from './app.module';
+
+import { GlobalErrorCatcher } from '@middleware/global-error-catcher.middleware';
+
 import { ValidationPipe } from '@nestjs/common';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as dotenv from 'dotenv';
-
-import { AppModule } from './app.module';
 
 dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.setGlobalPrefix('api');
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -17,6 +23,8 @@ async function bootstrap() {
       disableErrorMessages: false,
     }),
   );
+
+  app.useGlobalFilters(new GlobalErrorCatcher());
 
   const config = new DocumentBuilder()
     .setTitle('NestJS Template | NestJS - PostgreSQL TypeORM')
