@@ -82,7 +82,7 @@ export class AuthService {
     const refreshTokenValue = uuidv4();
     const accessToken = this.jwtService.sign(
       {
-        userId: userData.id,
+        id: userData.id,
         email: userData.email,
         role: userData.role,
       },

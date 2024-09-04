@@ -1,16 +1,22 @@
 import { GetHelloDataDto } from 'getHelloData.dto';
+import { UserRole } from 'types/roles';
 
 import { AppService } from './app.service';
 
-import { Body, Controller, Post } from '@nestjs/common';
+import { Roles } from '@routes/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from '@routes/auth/guards/auth.guard';
+import { RolesGuard } from '@routes/auth/guards/roles.guard';
+
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Roles([UserRole.ADMIN])
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('test')
   getHello(@Body() getHelloData: GetHelloDataDto) {
-    console.log(getHelloData);
     return this.appService.getHello();
   }
 }
