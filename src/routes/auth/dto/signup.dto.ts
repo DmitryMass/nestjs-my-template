@@ -1,12 +1,19 @@
 import { IsEmail, IsString, Matches, MinLength } from 'class-validator';
 
+import { ApiProperty } from '@nestjs/swagger';
+
 export class SignupDto {
+  @ApiProperty({ description: 'First name' })
   @IsString({ message: 'First name must contain only string' })
   firstName: string;
 
+  @ApiProperty({ description: 'User email' })
   @IsEmail()
   email: string;
 
+  @ApiProperty({
+    description: 'User password (must contain at least one number)',
+  })
   @IsString()
   @MinLength(6)
   @Matches(/^(?=.*[0-9])/, {

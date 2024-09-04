@@ -25,6 +25,7 @@ export class AuthController {
     description: SUCCESS.userCreated,
     type: Message,
   })
+  @ApiUnauthorizedResponse({ description: ERROR.wrongCredentials })
   @ApiBadRequestResponse({ description: ERROR.userExist })
   @Post('signup')
   async signup(@Body() signupDto: SignupDto) {
@@ -40,6 +41,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'Refresh token' })
+  @ApiUnauthorizedResponse({ description: ERROR.refreshTokenInvalid })
   @Post('refresh')
   async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
     return this.authService.refreshToken(refreshTokenDto.refreshToken);

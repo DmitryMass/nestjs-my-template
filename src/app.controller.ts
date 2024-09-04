@@ -8,7 +8,9 @@ import { JwtAuthGuard } from '@routes/auth/guards/auth.guard';
 import { RolesGuard } from '@routes/auth/guards/roles.guard';
 
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('App endpoints')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
